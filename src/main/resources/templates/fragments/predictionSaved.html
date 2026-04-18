@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<div th:id="'prediction-form-' + ${prediction.match.id}" class="bg-emerald-50 border border-emerald-300 rounded p-3 text-emerald-800">
+<div th:id="'prediction-form-' + ${prediction.match.id}" class="alert alert-success">
     Pronóstico guardado: <strong th:text="${prediction.homeScore + ' - ' + prediction.awayScore}"></strong>
 </div>
 </html>

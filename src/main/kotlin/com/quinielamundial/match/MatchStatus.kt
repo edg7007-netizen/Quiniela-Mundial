@@ -1,7 +1,7 @@
 package com.quinielamundial.match
 
-enum class MatchStatus {
-    SCHEDULED,
-    LIVE,
-    FINISHED
+enum class MatchStatus(val label: String) {
+    SCHEDULED("Programado"),
+    LIVE("En vivo"),
+    FINISHED("Finalizado")
 }

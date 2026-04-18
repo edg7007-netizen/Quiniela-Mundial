@@ -1,23 +1,58 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content">
-    <h1 class="text-2xl font-bold mb-4">Clasificación</h1>
-    <div class="bg-white rounded shadow overflow-x-auto">
-        <table class="w-full text-left">
-            <thead class="bg-gray-100">
+<section layout:fragment="content" class="space-y-5">
+    <h1 class="text-3xl font-bold">Clasificación</h1>
+
+    <div class="grid md:grid-cols-3 gap-4" th:if="${!entries.isEmpty()}">
+        <article class="card bg-base-100 shadow-xl border-2 border-accent md:order-2" th:if="${entries.size() >= 1}">
+            <div class="card-body items-center text-center">
+                <p class="text-4xl">🥇</p>
+                <h2 class="card-title" th:text="${entries[0].userName}"></h2>
+                <p class="badge badge-accent" th:text="${entries[0].totalPoints + ' pts'}"></p>
+            </div>
+        </article>
+        <article class="card bg-base-100 shadow-lg border border-base-300 md:order-1" th:if="${entries.size() >= 2}">
+            <div class="card-body items-center text-center">
+                <p class="text-3xl">🥈</p>
+                <h2 class="card-title" th:text="${entries[1].userName}"></h2>
+                <p class="badge badge-outline" th:text="${entries[1].totalPoints + ' pts'}"></p>
+            </div>
+        </article>
+        <article class="card bg-base-100 shadow-lg border border-base-300 md:order-3" th:if="${entries.size() >= 3}">
+            <div class="card-body items-center text-center">
+                <p class="text-3xl">🥉</p>
+                <h2 class="card-title" th:text="${entries[2].userName}"></h2>
+                <p class="badge badge-outline" th:text="${entries[2].totalPoints + ' pts'}"></p>
+            </div>
+        </article>
+    </div>
+
+    <div class="card bg-base-100 shadow overflow-x-auto">
+        <table class="table table-zebra table-hover">
+            <thead>
             <tr>
-                <th class="p-3">Posición</th>
-                <th class="p-3">Usuario</th>
-                <th class="p-3">Puntos</th>
-                <th class="p-3">Exactos</th>
+                <th>Posición</th>
+                <th>Jugador</th>
+                <th>Puntos</th>
+                <th>Exactos</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="entry : ${entries}" class="border-t">
-                <td class="p-3" th:text="${entry.rank}"></td>
-                <td class="p-3" th:text="${entry.userName}"></td>
-                <td class="p-3" th:text="${entry.totalPoints}"></td>
-                <td class="p-3" th:text="${entry.exactMatches}"></td>
+            <tr th:each="entry : ${entries}"
+                th:with="nombreAutenticado=${#authentication?.principal?.user?.name ?: #authentication?.principal?.attributes?.get('name') ?: #authentication?.name}"
+                th:classappend="${#authentication != null and entry.userName == nombreAutenticado} ? 'bg-primary/15 font-semibold'">
+                <td>
+                    <span th:text="${entry.rank}"></span>
+                    <span th:if="${entry.rank == 1}"> 🥇</span>
+                    <span th:if="${entry.rank == 2}"> 🥈</span>
+                    <span th:if="${entry.rank == 3}"> 🥉</span>
+                </td>
+                <td>
+                    <span class="mr-2">🏁</span>
+                    <span th:text="${entry.userName}"></span>
+                </td>
+                <td th:text="${entry.totalPoints}"></td>
+                <td th:text="${entry.exactMatches}"></td>
             </tr>
             </tbody>
         </table>

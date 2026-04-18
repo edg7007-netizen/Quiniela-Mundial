@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="max-w-md mx-auto bg-white rounded-lg shadow p-6">
-    <h1 class="text-xl font-bold mb-4">Crear cuenta</h1>
-    <p class="text-red-600 mb-2" th:if="${errorMessage}" th:text="${errorMessage}"></p>
-    <form method="post" th:action="@{/register}" th:object="${registerForm}" class="space-y-3">
-        <input class="w-full border rounded p-2" type="text" th:field="*{name}" placeholder="Nombre" required>
-        <input class="w-full border rounded p-2" type="email" th:field="*{email}" placeholder="Correo" required>
-        <input class="w-full border rounded p-2" type="password" th:field="*{password}" placeholder="Contraseña" required>
-        <button class="w-full bg-emerald-600 text-white py-2 rounded" type="submit">Registrarme</button>
-    </form>
+<section layout:fragment="content" class="max-w-md mx-auto">
+    <article class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h1 class="card-title text-2xl">Crear cuenta</h1>
+            <div class="alert alert-error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+            <form method="post" th:action="@{/register}" th:object="${registerForm}" class="space-y-3">
+                <label class="form-control w-full">
+                    <span class="label-text mb-1">Nombre</span>
+                    <input class="input input-bordered w-full" type="text" th:field="*{name}" placeholder="Tu nombre" required>
+                </label>
+                <label class="form-control w-full">
+                    <span class="label-text mb-1">Correo</span>
+                    <input class="input input-bordered w-full" type="email" th:field="*{email}" placeholder="correo@ejemplo.com" required>
+                </label>
+                <label class="form-control w-full">
+                    <span class="label-text mb-1">Contraseña</span>
+                    <input class="input input-bordered w-full" type="password" th:field="*{password}" placeholder="••••••••" required>
+                </label>
+                <button class="btn btn-primary w-full" type="submit">Registrarme</button>
+            </form>
+        </div>
+    </article>
 </section>
 </html>
