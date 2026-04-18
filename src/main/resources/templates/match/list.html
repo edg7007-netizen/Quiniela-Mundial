@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content">
-    <h1 class="text-2xl font-bold mb-4">Partidos</h1>
-    <div class="grid gap-3">
-        <a th:each="match : ${matches}" th:href="@{'/matches/' + ${match.id}}" class="bg-white rounded shadow p-4 block hover:bg-emerald-50">
-            <p class="font-semibold" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></p>
-            <p class="text-sm text-gray-600" th:text="${match.phase + ' · ' + #temporals.format(match.startTime, 'yyyy-MM-dd HH:mm')} "></p>
+<section layout:fragment="content" class="space-y-6">
+    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Calendario</p>
+            <h1 class="mt-2 text-4xl font-black tracking-tight text-white">Próximos partidos</h1>
+            <p class="mt-2 max-w-2xl text-slate-300">Revisa la agenda del torneo y entra a cada cruce para dejar tu marcador antes del cierre.</p>
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/[0.04] px-5 py-4 text-sm text-slate-300">
+            <p class="font-semibold text-white">Regla de cierre</p>
+            <p>Los pronósticos se bloquean 30 minutos antes del inicio.</p>
+        </div>
+    </div>
+
+    <div class="grid gap-4">
+        <a th:each="match : ${matches}" th:href="@{'/matches/' + ${match.id}}" class="group rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow transition hover:-translate-y-1 hover:border-emerald-300/30 hover:bg-white/[0.06]">
+            <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em]">
+                        <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-sky-100">
+                            <th:block th:switch="${match.phase.name()}">
+                                <span th:case="'GROUP_STAGE'">Grupos</span>
+                                <span th:case="'ROUND_OF_32'">Dieciseisavos</span>
+                                <span th:case="'ROUND_OF_16'">Octavos</span>
+                                <span th:case="'QUARTER_FINAL'">Cuartos</span>
+                                <span th:case="'SEMI_FINAL'">Semifinal</span>
+                                <span th:case="'THIRD_PLACE'">Tercer lugar</span>
+                                <span th:case="'FINAL'">Final</span>
+                            </th:block>
+                        </span>
+                        <span class="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-emerald-100">Disponible</span>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-white md:text-3xl" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></p>
+                        <p class="mt-2 text-sm text-slate-400" th:text="${match.venue}"></p>
+                    </div>
+                </div>
+                <div class="grid gap-3 text-sm text-slate-300 md:grid-cols-2 lg:min-w-[20rem]">
+                    <div class="rounded-3xl border border-white/10 bg-slate-950/50 px-4 py-3">
+                        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Inicio</p>
+                        <p class="mt-2 font-semibold text-white" th:text="${#temporals.format(match.startTime, 'dd MMM yyyy')}"></p>
+                        <p class="text-slate-400" th:text="${#temporals.format(match.startTime, 'HH:mm')}"></p>
+                    </div>
+                    <div class="rounded-3xl border border-white/10 bg-slate-950/50 px-4 py-3">
+                        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Acción</p>
+                        <p class="mt-2 font-semibold text-white">Entrar al partido</p>
+                        <p class="text-slate-400 group-hover:text-emerald-200">Haz tu pronóstico</p>
+                    </div>
+                </div>
+            </div>
         </a>
+        <p th:if="${#lists.isEmpty(matches)}" class="rounded-[1.75rem] border border-dashed border-white/10 px-6 py-12 text-center text-slate-400">No hay partidos próximos disponibles.</p>
     </div>
 </section>
 </html>

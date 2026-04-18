@@ -1,8 +1,49 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="bg-white rounded shadow p-6">
-    <h1 class="text-2xl font-bold mb-2" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></h1>
-    <p class="text-gray-600 mb-4" th:text="${#temporals.format(match.startTime, 'yyyy-MM-dd HH:mm') + ' · ' + match.venue}"></p>
-    <div th:replace="~{fragments/predictionForm :: predictionForm(matchId=${match.id})}"></div>
+<section layout:fragment="content" class="space-y-6">
+    <article class="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-glow">
+        <div class="grid gap-6 px-6 py-8 md:grid-cols-[1.25fr_0.85fr] md:px-10 md:py-10">
+            <div class="space-y-5">
+                <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em]">
+                    <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-sky-100">
+                        <th:block th:switch="${match.phase.name()}">
+                            <span th:case="'GROUP_STAGE'">Fase de grupos</span>
+                            <span th:case="'ROUND_OF_32'">Dieciseisavos</span>
+                            <span th:case="'ROUND_OF_16'">Octavos</span>
+                            <span th:case="'QUARTER_FINAL'">Cuartos</span>
+                            <span th:case="'SEMI_FINAL'">Semifinal</span>
+                            <span th:case="'THIRD_PLACE'">Tercer lugar</span>
+                            <span th:case="'FINAL'">Final</span>
+                        </th:block>
+                    </span>
+                    <span class="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-emerald-100">Ventana abierta</span>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-black tracking-tight text-white md:text-5xl" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></h1>
+                    <p class="mt-3 max-w-2xl text-base leading-7 text-slate-300">Un solo pronóstico por usuario. Elige tu marcador con tiempo y entra a la clasificación con cada acierto.</p>
+                </div>
+                <div class="grid gap-3 sm:grid-cols-3">
+                    <article class="rounded-3xl border border-white/10 bg-slate-950/45 p-4">
+                        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Fecha</p>
+                        <p class="mt-2 font-semibold text-white" th:text="${#temporals.format(match.startTime, 'dd MMM yyyy')}"></p>
+                    </article>
+                    <article class="rounded-3xl border border-white/10 bg-slate-950/45 p-4">
+                        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Hora</p>
+                        <p class="mt-2 font-semibold text-white" th:text="${#temporals.format(match.startTime, 'HH:mm')}"></p>
+                    </article>
+                    <article class="rounded-3xl border border-white/10 bg-slate-950/45 p-4">
+                        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Sede</p>
+                        <p class="mt-2 font-semibold text-white" th:text="${match.venue}"></p>
+                    </article>
+                </div>
+            </div>
+            <aside class="rounded-[1.75rem] border border-white/10 bg-slate-950/65 p-6">
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Zona de pronóstico</p>
+                <h2 class="mt-2 text-2xl font-bold text-white">Marca el partido</h2>
+                <p class="mt-2 text-sm leading-6 text-slate-300">Si aciertas el resultado exacto sumas 3 puntos; si solo aciertas la tendencia sumas 1.</p>
+                <div class="mt-6" th:replace="~{fragments/predictionForm :: predictionForm(matchId=${match.id})}"></div>
+            </aside>
+        </div>
+    </article>
 </section>
 </html>

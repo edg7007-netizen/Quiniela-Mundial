@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="max-w-md mx-auto bg-white rounded-lg shadow p-6">
-    <h1 class="text-xl font-bold mb-4">Iniciar sesión</h1>
-    <div th:if="${param.error}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-3">
+<section layout:fragment="content" class="mx-auto max-w-md rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-glow md:p-8">
+    <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Acceso</p>
+    <h1 class="mt-2 text-3xl font-black tracking-tight text-white">Iniciar sesión</h1>
+    <p class="mt-2 text-sm leading-6 text-slate-300">Entra para registrar tus pronósticos, seguir tus resultados y pelear cada punto.</p>
+    <div th:if="${param.error}" class="mt-5 rounded-2xl border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-100">
         Correo o contraseña incorrectos.
     </div>
-    <div th:if="${param.logout}" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded mb-3">
+    <div th:if="${param.logout}" class="mt-5 rounded-2xl border border-sky-300/30 bg-sky-300/10 px-4 py-3 text-sm text-sky-100">
         Has cerrado sesión correctamente.
     </div>
-    <div th:if="${param.registered}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-3">
+    <div th:if="${param.registered}" class="mt-5 rounded-2xl border border-emerald-300/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-100">
         Registro exitoso. Ahora puedes iniciar sesión.
     </div>
-    <form method="post" th:action="@{/login}" class="space-y-3">
-        <input class="w-full border rounded p-2" type="email" name="username" placeholder="Correo" required>
-        <input class="w-full border rounded p-2" type="password" name="password" placeholder="Contraseña" required>
-        <button class="w-full bg-emerald-600 text-white py-2 rounded" type="submit">Ingresar</button>
+    <form method="post" th:action="@{/login}" class="mt-6 space-y-4">
+        <input class="w-full rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-emerald-300/50" type="email" name="username" placeholder="Correo" required>
+        <input class="w-full rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-emerald-300/50" type="password" name="password" placeholder="Contraseña" required>
+        <button class="w-full rounded-full bg-emerald-400 py-3 font-semibold text-slate-950 transition hover:bg-emerald-300" type="submit">Ingresar</button>
     </form>
-    <a class="mt-3 block text-center border rounded py-2" href="/oauth2/authorization/google">Ingresar con Google</a>
-    <p class="mt-3 text-sm text-center">¿No tienes cuenta? <a class="text-emerald-700" href="/register">Regístrate</a></p>
+    <a class="mt-4 block rounded-full border border-white/10 py-3 text-center text-sm font-semibold text-white transition hover:border-sky-300/30 hover:bg-white/[0.04]" href="/oauth2/authorization/google">Ingresar con Google</a>
+    <p class="mt-4 text-center text-sm text-slate-400">¿No tienes cuenta? <a class="font-semibold text-emerald-300" href="/register">Regístrate</a></p>
 </section>
 </html>

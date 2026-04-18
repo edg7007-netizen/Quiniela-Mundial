@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content">
-    <h1 class="text-2xl font-bold mb-4">Administración de partidos</h1>
-    <div class="grid gap-3">
-        <article th:each="match : ${matches}" class="bg-white rounded shadow p-4">
-            <p class="font-semibold" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></p>
-            <form class="mt-2 flex items-center gap-2" th:action="@{'/admin/matches/' + ${match.id} + '/result'}" method="post">
-                <input type="number" min="0" name="homeScore" class="border rounded p-1 w-16" required>
-                <span>-</span>
-                <input type="number" min="0" name="awayScore" class="border rounded p-1 w-16" required>
-                <button class="bg-slate-900 text-white px-3 py-1 rounded" type="submit">Guardar resultado</button>
-            </form>
+<section layout:fragment="content" class="space-y-6">
+    <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Backoffice</p>
+        <h1 class="mt-2 text-4xl font-black tracking-tight text-white">Administración de partidos</h1>
+    </div>
+    <div class="grid gap-4">
+        <article th:each="match : ${matches}" class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                    <p class="font-semibold text-white" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></p>
+                    <p class="mt-1 text-sm text-slate-400" th:text="${#temporals.format(match.startTime, 'dd MMM yyyy · HH:mm') + ' · ' + match.venue}"></p>
+                </div>
+                <form class="flex flex-wrap items-center gap-3" th:action="@{'/admin/matches/' + ${match.id} + '/result'}" method="post">
+                    <input type="number" min="0" name="homeScore" class="w-20 rounded-2xl border border-white/10 bg-slate-950/60 px-3 py-2 text-center text-white outline-none transition focus:border-emerald-300/50" required>
+                    <span class="text-slate-500">-</span>
+                    <input type="number" min="0" name="awayScore" class="w-20 rounded-2xl border border-white/10 bg-slate-950/60 px-3 py-2 text-center text-white outline-none transition focus:border-emerald-300/50" required>
+                    <button class="rounded-full bg-emerald-400 px-4 py-2 font-semibold text-slate-950 transition hover:bg-emerald-300" type="submit">Guardar resultado</button>
+                </form>
+            </div>
         </article>
+        <p th:if="${#lists.isEmpty(matches)}" class="rounded-[1.75rem] border border-dashed border-white/10 px-6 py-12 text-center text-slate-400">No hay partidos para administrar.</p>
     </div>
 </section>
 </html>

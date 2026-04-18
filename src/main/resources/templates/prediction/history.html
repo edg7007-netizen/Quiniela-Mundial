@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content">
-    <h1 class="text-2xl font-bold mb-4">Historial de pronósticos</h1>
-    <div class="grid gap-3">
-        <article th:each="p : ${predictions}" class="bg-white rounded shadow p-4">
-            <p th:text="${p.match.homeTeam.name + ' ' + p.homeScore + ' - ' + p.awayScore + ' ' + p.match.awayTeam.name}"></p>
-            <p class="text-sm text-gray-600" th:text="${p.points != null ? 'Puntos: ' + p.points : 'Pendiente de puntaje'}"></p>
+<section layout:fragment="content" class="space-y-6">
+    <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Tu rendimiento</p>
+        <h1 class="mt-2 text-4xl font-black tracking-tight text-white">Historial de pronósticos</h1>
+        <p class="mt-2 max-w-2xl text-slate-300">Revisa cada marcador guardado, los puntos obtenidos y el estado de tus partidos.</p>
+    </div>
+    <div class="grid gap-4 md:grid-cols-2">
+        <article th:each="p : ${predictions}" class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Partido</p>
+                    <p class="mt-2 text-lg font-bold text-white" th:text="${p.match.homeTeam.name + ' vs ' + p.match.awayTeam.name}"></p>
+                    <p class="mt-1 text-sm text-slate-400" th:text="${#temporals.format(p.match.startTime, 'dd MMM · HH:mm')}"></p>
+                </div>
+                <span class="rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]"
+                      th:classappend="${p.points != null} ? ' border-emerald-300/30 bg-emerald-400/10 text-emerald-100' : ' border-sky-300/20 bg-sky-300/10 text-sky-100'"
+                      th:text="${p.points != null ? 'Puntuado' : 'Pendiente'}"></span>
+            </div>
+            <div class="mt-6 rounded-3xl border border-white/10 bg-slate-950/50 p-4">
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Tu marcador</p>
+                <p class="mt-3 text-3xl font-black text-white" th:text="${p.homeScore + ' - ' + p.awayScore}"></p>
+            </div>
+            <p class="mt-4 text-sm text-slate-300" th:text="${p.points != null ? 'Puntos obtenidos: ' + p.points : 'Pendiente de puntaje'}"></p>
         </article>
+        <p th:if="${#lists.isEmpty(predictions)}" class="rounded-[1.75rem] border border-dashed border-white/10 px-6 py-12 text-center text-slate-400 md:col-span-2">Todavía no has registrado pronósticos.</p>
     </div>
 </section>
 </html>
