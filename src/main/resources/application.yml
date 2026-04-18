@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: quiniela-mundial
+  datasource:
+    url: jdbc:postgresql://localhost:5432/quiniela_mundial
+    username: quiniela
+    password: quiniela
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:placeholder}
+            client-secret: ${GOOGLE_CLIENT_SECRET:placeholder}
+            scope: openid, profile, email
+  docker:
+    compose:
+      lifecycle-management: start_and_stop
+
+logging:
+  level:
+    com.quinielamundial: INFO
+    com.quinielamundial.auth: DEBUG
+    org.springframework.security: INFO
