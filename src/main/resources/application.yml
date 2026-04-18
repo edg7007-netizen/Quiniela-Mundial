@@ -25,3 +25,9 @@ spring:
   docker:
     compose:
       lifecycle-management: start_and_stop
+
+logging:
+  level:
+    com.quinielamundial: INFO
+    com.quinielamundial.auth: DEBUG
+    org.springframework.security: INFO
