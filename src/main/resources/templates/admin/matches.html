@@ -9,15 +9,15 @@
                     <div class="flex items-center gap-2">
                         <div class="avatar">
                             <div class="w-9 rounded-full bg-base-200">
-                                <img th:src="${match.homeTeam.flagUrl != null ? match.homeTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.homeTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.homeTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
-                                <span class="flag-fallback w-9 h-9 items-center justify-center text-sm">🏳️</span>
+                                <img th:src="${match.homeTeam.flagUrl != null ? match.homeTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.homeTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.homeTeam.name}" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');this.nextElementSibling.classList.add('inline-flex');">
+                                <span class="hidden w-9 h-9 items-center justify-center text-sm">🏳️</span>
                             </div>
                         </div>
                         <p class="font-semibold" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></p>
                         <div class="avatar">
                             <div class="w-9 rounded-full bg-base-200">
-                                <img th:src="${match.awayTeam.flagUrl != null ? match.awayTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.awayTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.awayTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
-                                <span class="flag-fallback w-9 h-9 items-center justify-center text-sm">🏳️</span>
+                                <img th:src="${match.awayTeam.flagUrl != null ? match.awayTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.awayTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.awayTeam.name}" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');this.nextElementSibling.classList.add('inline-flex');">
+                                <span class="hidden w-9 h-9 items-center justify-center text-sm">🏳️</span>
                             </div>
                         </div>
                     </div>

@@ -38,7 +38,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="entry : ${entries}" th:classappend="${#authentication != null and (entry.userName == #authentication.name or entry.userName == #authentication?.principal?.user?.name or entry.userName == #authentication?.principal?.attributes?.get('name'))} ? 'bg-primary/15 font-semibold'">
+            <tr th:each="entry : ${entries}"
+                th:with="nombreAutenticado=${#authentication?.principal?.user?.name ?: #authentication?.principal?.attributes?.get('name') ?: #authentication?.name}"
+                th:classappend="${#authentication != null and entry.userName == nombreAutenticado} ? 'bg-primary/15 font-semibold'">
                 <td>
                     <span th:text="${entry.rank}"></span>
                     <span th:if="${entry.rank == 1}"> 🥇</span>

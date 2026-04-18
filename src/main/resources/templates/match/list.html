@@ -9,8 +9,8 @@
                     <div class="flex items-center gap-3 min-w-0">
                         <div class="avatar">
                             <div class="w-10 rounded-full bg-base-200">
-                                <img th:src="${match.homeTeam.flagUrl != null ? match.homeTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.homeTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.homeTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
-                                <span class="flag-fallback w-10 h-10 items-center justify-center text-lg">🏳️</span>
+                                <img th:src="${match.homeTeam.flagUrl != null ? match.homeTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.homeTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.homeTeam.name}" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');this.nextElementSibling.classList.add('inline-flex');">
+                                <span class="hidden w-10 h-10 items-center justify-center text-lg">🏳️</span>
                             </div>
                         </div>
                         <p class="font-semibold truncate" th:text="${match.homeTeam.name}"></p>
@@ -20,8 +20,8 @@
                         <p class="font-semibold truncate" th:text="${match.awayTeam.name}"></p>
                         <div class="avatar">
                             <div class="w-10 rounded-full bg-base-200">
-                                <img th:src="${match.awayTeam.flagUrl != null ? match.awayTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.awayTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.awayTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
-                                <span class="flag-fallback w-10 h-10 items-center justify-center text-lg">🏳️</span>
+                                <img th:src="${match.awayTeam.flagUrl != null ? match.awayTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.awayTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.awayTeam.name}" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');this.nextElementSibling.classList.add('inline-flex');">
+                                <span class="hidden w-10 h-10 items-center justify-center text-lg">🏳️</span>
                             </div>
                         </div>
                     </div>
