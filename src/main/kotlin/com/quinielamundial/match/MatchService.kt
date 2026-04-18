@@ -1,7 +1,5 @@
 package com.quinielamundial.match
 
-import com.quinielamundial.prediction.PredictionRepository
-import com.quinielamundial.scoring.ScoreCalculator
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -10,7 +8,6 @@ import java.time.Instant
 @Service
 class MatchService(
     private val matchRepository: MatchRepository,
-    private val predictionRepository: PredictionRepository,
     private val eventPublisher: ApplicationEventPublisher
 ) {
     fun findAllUpcoming(): List<Match> = matchRepository.findAllByStartTimeAfterOrderByStartTimeAsc(Instant.now())
@@ -27,16 +24,6 @@ class MatchService(
         eventPublisher.publishEvent(
             MatchResultRegisteredEvent(saved.id!!, saved.homeScore!!, saved.awayScore!!)
         )
-        val predictions = predictionRepository.findAllByMatchId(saved.id!!)
-        predictions.forEach { prediction ->
-            prediction.points = ScoreCalculator.calculate(
-                prediction.homeScore,
-                prediction.awayScore,
-                saved.homeScore!!,
-                saved.awayScore!!
-            )
-        }
-        predictionRepository.saveAll(predictions)
         return saved
     }
 }

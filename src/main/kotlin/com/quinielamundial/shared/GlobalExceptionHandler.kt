@@ -22,7 +22,7 @@ class GlobalExceptionHandler {
                 .body(mapOf("error" to (ex.message ?: "Error de validación")))
         } else {
             model.addAttribute("errorMessage", ex.message ?: "Error de validación")
-            "error/404"
+            "error/400"
         }
     }
 }

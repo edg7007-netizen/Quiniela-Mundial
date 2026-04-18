@@ -1,7 +1,6 @@
 package com.quinielamundial.match
 
 import com.quinielamundial.team.Team
-import com.quinielamundial.prediction.PredictionRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -14,9 +13,8 @@ import java.util.Optional
 class MatchServiceTest {
 
     private val matchRepository = mockk<MatchRepository>(relaxed = true)
-    private val predictionRepository = mockk<PredictionRepository>(relaxed = true)
     private val eventPublisher = mockk<ApplicationEventPublisher>(relaxed = true)
-    private val service = MatchService(matchRepository, predictionRepository, eventPublisher)
+    private val service = MatchService(matchRepository, eventPublisher)
 
     @Test
     fun `register result should set finished and publish event`() {

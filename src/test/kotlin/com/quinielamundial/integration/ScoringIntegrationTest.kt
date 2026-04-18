@@ -60,12 +60,7 @@ class ScoringIntegrationTest {
             matchService.registerResult(MatchResultRequest(match.id, 1, 0))
         }
 
-        var savedPrediction = predictionService.findByMatchId(match.id!!).first()
-        repeat(10) {
-            if (savedPrediction.points != null) return@repeat
-            Thread.sleep(100)
-            savedPrediction = predictionService.findByMatchId(match.id!!).first()
-        }
+        val savedPrediction = predictionService.findByMatchId(match.id!!).first()
         assertEquals(3, savedPrediction.points)
     }
 }
