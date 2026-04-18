@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+<section layout:fragment="content">
+    <h1 class="text-2xl font-bold mb-4">Historial de pronósticos</h1>
+    <div class="grid gap-3">
+        <article th:each="p : ${predictions}" class="bg-white rounded shadow p-4">
+            <p th:text="${p.match.homeTeam.name + ' ' + p.homeScore + ' - ' + p.awayScore + ' ' + p.match.awayTeam.name}"></p>
+            <p class="text-sm text-gray-600" th:text="${p.points != null ? 'Puntos: ' + p.points : 'Pendiente de puntaje'}"></p>
+        </article>
+    </div>
+</section>
+</html>

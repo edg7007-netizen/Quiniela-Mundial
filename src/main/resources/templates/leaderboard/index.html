@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+<section layout:fragment="content">
+    <h1 class="text-2xl font-bold mb-4">Clasificación</h1>
+    <div class="bg-white rounded shadow overflow-x-auto">
+        <table class="w-full text-left">
+            <thead class="bg-gray-100">
+            <tr>
+                <th class="p-3">Posición</th>
+                <th class="p-3">Usuario</th>
+                <th class="p-3">Puntos</th>
+                <th class="p-3">Exactos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry : ${entries}" class="border-t">
+                <td class="p-3" th:text="${entry.rank}"></td>
+                <td class="p-3" th:text="${entry.userName}"></td>
+                <td class="p-3" th:text="${entry.totalPoints}"></td>
+                <td class="p-3" th:text="${entry.exactMatches}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</html>

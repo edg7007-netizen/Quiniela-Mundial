@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf != null ? _csrf.token : ''}">
+    <meta name="_csrf_header" th:content="${_csrf != null ? _csrf.headerName : ''}">
+    <title>Quiniela Mundial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        document.addEventListener('htmx:configRequest', function (event) {
+            const token = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
+            const header = document.querySelector('meta[name="_csrf_header"]')?.getAttribute('content');
+            if (token && header) {
+                event.detail.headers[header] = token;
+            }
+        });
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+<nav class="bg-slate-900 text-white" x-data="{ open: false }">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="/" class="font-bold">Quiniela Mundial</a>
+        <button class="md:hidden" @click="open = !open">☰</button>
+        <div class="hidden md:flex gap-4 items-center">
+            <a class="hover:text-emerald-300" href="/">Inicio</a>
+            <a class="hover:text-emerald-300" href="/matches">Partidos</a>
+            <a class="hover:text-emerald-300" href="/leaderboard">Clasificación</a>
+            <a class="hover:text-emerald-300" href="/predictions/history">Mis pronósticos</a>
+            <a class="hover:text-emerald-300" href="/admin/matches" sec:authorize="hasRole('ADMIN')">Admin</a>
+            <a class="hover:text-emerald-300" href="/login" sec:authorize="!isAuthenticated()">Ingresar</a>
+            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <button class="bg-emerald-600 px-3 py-1 rounded" type="submit">Salir</button>
+            </form>
+        </div>
+    </div>
+    <div class="md:hidden px-4 pb-3" x-show="open" x-transition>
+        <a class="block py-1" href="/">Inicio</a>
+        <a class="block py-1" href="/matches">Partidos</a>
+        <a class="block py-1" href="/leaderboard">Clasificación</a>
+        <a class="block py-1" href="/predictions/history">Mis pronósticos</a>
+        <a class="block py-1" href="/admin/matches" sec:authorize="hasRole('ADMIN')">Admin</a>
+    </div>
+</nav>
+
+<main class="flex-1 max-w-6xl mx-auto w-full p-4" layout:fragment="content"></main>
+
+<footer class="bg-slate-900 text-white text-center py-3 text-sm">
+    Quiniela Mundial FIFA 2026
+</footer>
+</body>
+</html>

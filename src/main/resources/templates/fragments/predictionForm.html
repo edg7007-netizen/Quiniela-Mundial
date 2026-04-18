@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="predictionForm(matchId)" th:id="'prediction-form-' + ${matchId}">
+    <form class="flex items-center gap-2" hx-post="/predictions" th:attr="hx-target=${'#prediction-form-' + matchId}" hx-swap="outerHTML">
+        <input type="hidden" name="matchId" th:value="${matchId}">
+        <input type="number" name="homeScore" min="0" class="border rounded p-1 w-16" required>
+        <span>-</span>
+        <input type="number" name="awayScore" min="0" class="border rounded p-1 w-16" required>
+        <button class="bg-emerald-600 text-white px-3 py-1 rounded" type="submit">Guardar pronóstico</button>
+    </form>
+</div>
+</html>

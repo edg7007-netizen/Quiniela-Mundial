@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+<section layout:fragment="content" class="max-w-md mx-auto bg-white rounded-lg shadow p-6">
+    <h1 class="text-xl font-bold mb-4">Crear cuenta</h1>
+    <p class="text-red-600 mb-2" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+    <form method="post" th:action="@{/register}" th:object="${registerForm}" class="space-y-3">
+        <input class="w-full border rounded p-2" type="text" th:field="*{name}" placeholder="Nombre" required>
+        <input class="w-full border rounded p-2" type="email" th:field="*{email}" placeholder="Correo" required>
+        <input class="w-full border rounded p-2" type="password" th:field="*{password}" placeholder="Contraseña" required>
+        <button class="w-full bg-emerald-600 text-white py-2 rounded" type="submit">Registrarme</button>
+    </form>
+</section>
+</html>
