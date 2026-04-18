@@ -1,7 +1,53 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="bg-white rounded-lg shadow p-6">
-    <h1 class="text-2xl font-bold mb-3">Bienvenido a Quiniela Mundial 2026</h1>
-    <p class="text-gray-700">Registra tus pronósticos hasta 30 minutos antes de cada partido y compite en la clasificación global.</p>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layout/main}">
+<section layout:fragment="content" class="space-y-6">
+    <div class="hero hero-fifa rounded-2xl text-white shadow-2xl">
+        <div class="hero-content py-14 text-center">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl font-bold">Vive la pasión del Mundial 2026</h1>
+                <p class="py-4 text-lg">Compite con tus amigos, registra cada pronóstico y demuestra quién conoce mejor el fútbol.</p>
+                <div class="stats stats-vertical md:stats-horizontal bg-base-100/10 text-white shadow">
+                    <div class="stat">
+                        <div class="stat-title text-white/80">Exacto</div>
+                        <div class="stat-value text-accent">3 pts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-title text-white/80">Tendencia</div>
+                        <div class="stat-value text-accent">1 pt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-title text-white/80">Fallo</div>
+                        <div class="stat-value text-accent">0 pts</div>
+                    </div>
+                </div>
+                <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                    <a class="btn btn-accent" href="/matches">Ver partidos</a>
+                    <a class="btn btn-outline border-white text-white hover:bg-white hover:text-neutral" href="/register" sec:authorize="!isAuthenticated()">Registrarse</a>
+                    <a class="btn btn-outline border-white text-white hover:bg-white hover:text-neutral" href="/leaderboard" sec:authorize="isAuthenticated()">Clasificación</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4">
+        <article class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">1. Elige resultado</h2>
+                <p>Pronostica marcador local y visitante antes del cierre del partido.</p>
+            </div>
+        </article>
+        <article class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">2. Suma puntos</h2>
+                <p>3 puntos por exacto, 1 por tendencia correcta y 0 si fallas.</p>
+            </div>
+        </article>
+        <article class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">3. Lidera el ranking</h2>
+                <p>Revisa la clasificación global y pelea por el podio mundialista.</p>
+            </div>
+        </article>
+    </div>
 </section>
 </html>

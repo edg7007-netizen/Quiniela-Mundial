@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" data-theme="fifa2026" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_csrf" th:content="${_csrf != null ? _csrf.token : ''}">
     <meta name="_csrf_header" th:content="${_csrf != null ? _csrf.headerName : ''}">
     <title>Quiniela Mundial</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/output.css}">
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
@@ -19,36 +19,47 @@
         });
     </script>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
-<nav class="bg-slate-900 text-white" x-data="{ open: false }">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        <a href="/" class="font-bold">Quiniela Mundial</a>
-        <button class="md:hidden" @click="open = !open">☰</button>
-        <div class="hidden md:flex gap-4 items-center">
-            <a class="hover:text-emerald-300" href="/">Inicio</a>
-            <a class="hover:text-emerald-300" href="/matches">Partidos</a>
-            <a class="hover:text-emerald-300" href="/leaderboard">Clasificación</a>
-            <a class="hover:text-emerald-300" href="/predictions/history">Mis pronósticos</a>
-            <a class="hover:text-emerald-300" href="/admin/matches" sec:authorize="hasRole('ADMIN')">Admin</a>
-            <a class="hover:text-emerald-300" href="/login" sec:authorize="!isAuthenticated()">Ingresar</a>
+<body class="bg-base-200 min-h-screen flex flex-col">
+<nav class="navbar bg-neutral text-neutral-content shadow-lg" x-data="{ open: false }">
+    <div class="navbar-start">
+        <a href="/" class="btn btn-ghost text-lg font-bold tracking-wide">Quiniela Mundial</a>
+    </div>
+    <div class="navbar-end hidden md:flex gap-1">
+        <a class="btn btn-ghost btn-sm" href="/">Inicio</a>
+        <a class="btn btn-ghost btn-sm" href="/matches">Partidos</a>
+        <a class="btn btn-ghost btn-sm" href="/leaderboard">Clasificación</a>
+        <a class="btn btn-ghost btn-sm" href="/predictions/history">Mis pronósticos</a>
+        <a class="btn btn-ghost btn-sm" href="/admin/matches" sec:authorize="hasRole('ADMIN')">Administración</a>
+        <a class="btn btn-accent btn-sm" href="/login" sec:authorize="!isAuthenticated()">Ingresar</a>
+        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+            <button class="btn btn-accent btn-sm" type="submit">Salir</button>
+        </form>
+    </div>
+    <div class="navbar-end md:hidden">
+        <button class="btn btn-ghost" @click="open = !open" type="button" aria-label="Abrir menú">☰</button>
+    </div>
+    <div class="absolute left-0 top-full w-full bg-neutral px-4 pb-4 md:hidden" x-show="open" x-transition>
+        <div class="grid gap-2 mt-2">
+            <a class="btn btn-ghost justify-start" href="/">Inicio</a>
+            <a class="btn btn-ghost justify-start" href="/matches">Partidos</a>
+            <a class="btn btn-ghost justify-start" href="/leaderboard">Clasificación</a>
+            <a class="btn btn-ghost justify-start" href="/predictions/history">Mis pronósticos</a>
+            <a class="btn btn-ghost justify-start" href="/admin/matches" sec:authorize="hasRole('ADMIN')">Administración</a>
+            <a class="btn btn-accent justify-start" href="/login" sec:authorize="!isAuthenticated()">Ingresar</a>
             <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-                <button class="bg-emerald-600 px-3 py-1 rounded" type="submit">Salir</button>
+                <button class="btn btn-accent w-full" type="submit">Salir</button>
             </form>
         </div>
     </div>
-    <div class="md:hidden px-4 pb-3" x-show="open" x-transition>
-        <a class="block py-1" href="/">Inicio</a>
-        <a class="block py-1" href="/matches">Partidos</a>
-        <a class="block py-1" href="/leaderboard">Clasificación</a>
-        <a class="block py-1" href="/predictions/history">Mis pronósticos</a>
-        <a class="block py-1" href="/admin/matches" sec:authorize="hasRole('ADMIN')">Admin</a>
-    </div>
 </nav>
 
-<main class="flex-1 max-w-6xl mx-auto w-full p-4" layout:fragment="content"></main>
+<main class="flex-1 max-w-6xl mx-auto w-full p-4 lg:p-6" layout:fragment="content"></main>
 
-<footer class="bg-slate-900 text-white text-center py-3 text-sm">
-    Quiniela Mundial FIFA 2026
+<footer class="footer footer-center bg-neutral text-neutral-content p-6 text-sm">
+    <aside>
+        <p class="font-semibold">Quiniela Mundial FIFA 2026</p>
+        <p>Pronostica, compite y escala la clasificación con cada partido.</p>
+    </aside>
 </footer>
 </body>
 </html>

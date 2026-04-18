@@ -1,8 +1,43 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="bg-white rounded shadow p-6">
-    <h1 class="text-2xl font-bold mb-2" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></h1>
-    <p class="text-gray-600 mb-4" th:text="${#temporals.format(match.startTime, 'yyyy-MM-dd HH:mm') + ' · ' + match.venue}"></p>
-    <div th:replace="~{fragments/predictionForm :: predictionForm(matchId=${match.id})}"></div>
+<section layout:fragment="content" class="space-y-4">
+    <article class="card bg-base-100 shadow-xl">
+        <div class="card-body gap-4">
+            <h1 class="card-title text-3xl" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></h1>
+            <div class="flex items-center justify-between gap-4 flex-wrap">
+                <div class="flex items-center gap-3">
+                    <div class="avatar">
+                        <div class="w-12 rounded-full bg-base-200">
+                            <img th:src="${match.homeTeam.flagUrl != null ? match.homeTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.homeTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.homeTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
+                            <span class="flag-fallback w-12 h-12 items-center justify-center text-xl">🏳️</span>
+                        </div>
+                    </div>
+                    <span class="font-semibold" th:text="${match.homeTeam.name}"></span>
+                </div>
+                <span class="badge badge-accent badge-lg">VS</span>
+                <div class="flex items-center gap-3">
+                    <span class="font-semibold" th:text="${match.awayTeam.name}"></span>
+                    <div class="avatar">
+                        <div class="w-12 rounded-full bg-base-200">
+                            <img th:src="${match.awayTeam.flagUrl != null ? match.awayTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.awayTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.awayTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
+                            <span class="flag-fallback w-12 h-12 items-center justify-center text-xl">🏳️</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <span class="badge badge-primary" th:text="${match.phase.label}"></span>
+                <span class="badge badge-outline" th:text="${match.status.label}"></span>
+                <span class="badge badge-ghost" th:text="${#temporals.format(match.startTime, 'yyyy-MM-dd HH:mm')}"></span>
+                <span class="badge badge-ghost" th:text="${match.venue}"></span>
+            </div>
+        </div>
+    </article>
+    <article class="card bg-base-100 shadow">
+        <div class="card-body">
+            <h2 class="card-title">Tu pronóstico</h2>
+            <div th:replace="~{fragments/predictionForm :: predictionForm(matchId=${match.id})}"></div>
+        </div>
+    </article>
 </section>
 </html>

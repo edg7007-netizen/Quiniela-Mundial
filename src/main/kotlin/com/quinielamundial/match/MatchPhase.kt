@@ -1,11 +1,11 @@
 package com.quinielamundial.match
 
-enum class MatchPhase {
-    GROUP_STAGE,
-    ROUND_OF_32,
-    ROUND_OF_16,
-    QUARTER_FINAL,
-    SEMI_FINAL,
-    THIRD_PLACE,
-    FINAL
+enum class MatchPhase(val label: String) {
+    GROUP_STAGE("Fase de Grupos"),
+    ROUND_OF_32("Dieciseisavos"),
+    ROUND_OF_16("Octavos de Final"),
+    QUARTER_FINAL("Cuartos de Final"),
+    SEMI_FINAL("Semifinal"),
+    THIRD_PLACE("Tercer Lugar"),
+    FINAL("Final")
 }

@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="max-w-md mx-auto bg-white rounded-lg shadow p-6">
-    <h1 class="text-xl font-bold mb-4">Iniciar sesión</h1>
-    <div th:if="${param.error}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-3">
-        Correo o contraseña incorrectos.
-    </div>
-    <div th:if="${param.logout}" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded mb-3">
-        Has cerrado sesión correctamente.
-    </div>
-    <div th:if="${param.registered}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-3">
-        Registro exitoso. Ahora puedes iniciar sesión.
-    </div>
-    <form method="post" th:action="@{/login}" class="space-y-3">
-        <input class="w-full border rounded p-2" type="email" name="username" placeholder="Correo" required>
-        <input class="w-full border rounded p-2" type="password" name="password" placeholder="Contraseña" required>
-        <button class="w-full bg-emerald-600 text-white py-2 rounded" type="submit">Ingresar</button>
-    </form>
-    <a class="mt-3 block text-center border rounded py-2" href="/oauth2/authorization/google">Ingresar con Google</a>
-    <p class="mt-3 text-sm text-center">¿No tienes cuenta? <a class="text-emerald-700" href="/register">Regístrate</a></p>
+<section layout:fragment="content" class="max-w-md mx-auto">
+    <article class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h1 class="card-title text-2xl">Iniciar sesión</h1>
+            <div th:if="${param.error}" class="alert alert-error">Correo o contraseña incorrectos.</div>
+            <div th:if="${param.logout}" class="alert alert-info">Has cerrado sesión correctamente.</div>
+            <div th:if="${param.registered}" class="alert alert-success">Registro exitoso. Ahora puedes iniciar sesión.</div>
+            <form method="post" th:action="@{/login}" class="space-y-3">
+                <label class="form-control w-full">
+                    <span class="label-text mb-1">Correo</span>
+                    <input class="input input-bordered w-full" type="email" name="username" placeholder="correo@ejemplo.com" required>
+                </label>
+                <label class="form-control w-full">
+                    <span class="label-text mb-1">Contraseña</span>
+                    <input class="input input-bordered w-full" type="password" name="password" placeholder="••••••••" required>
+                </label>
+                <button class="btn btn-primary w-full" type="submit">Ingresar</button>
+            </form>
+            <a class="btn btn-outline w-full" href="/oauth2/authorization/google">Ingresar con Google</a>
+            <p class="text-sm text-center">¿No tienes cuenta? <a class="link link-primary" href="/register">Regístrate</a></p>
+        </div>
+    </article>
 </section>
 </html>

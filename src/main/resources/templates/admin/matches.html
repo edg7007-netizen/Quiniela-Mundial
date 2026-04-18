@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content">
-    <h1 class="text-2xl font-bold mb-4">Administración de partidos</h1>
-    <div class="grid gap-3">
-        <article th:each="match : ${matches}" class="bg-white rounded shadow p-4">
-            <p class="font-semibold" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></p>
-            <form class="mt-2 flex items-center gap-2" th:action="@{'/admin/matches/' + ${match.id} + '/result'}" method="post">
-                <input type="number" min="0" name="homeScore" class="border rounded p-1 w-16" required>
-                <span>-</span>
-                <input type="number" min="0" name="awayScore" class="border rounded p-1 w-16" required>
-                <button class="bg-slate-900 text-white px-3 py-1 rounded" type="submit">Guardar resultado</button>
-            </form>
+<section layout:fragment="content" class="space-y-4">
+    <h1 class="text-3xl font-bold">Administración de partidos</h1>
+    <div class="grid gap-4">
+        <article th:each="match : ${matches}" class="card bg-base-100 shadow">
+            <div class="card-body">
+                <div class="flex items-center justify-between gap-3 flex-wrap">
+                    <div class="flex items-center gap-2">
+                        <div class="avatar">
+                            <div class="w-9 rounded-full bg-base-200">
+                                <img th:src="${match.homeTeam.flagUrl != null ? match.homeTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.homeTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.homeTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
+                                <span class="flag-fallback w-9 h-9 items-center justify-center text-sm">🏳️</span>
+                            </div>
+                        </div>
+                        <p class="font-semibold" th:text="${match.homeTeam.name + ' vs ' + match.awayTeam.name}"></p>
+                        <div class="avatar">
+                            <div class="w-9 rounded-full bg-base-200">
+                                <img th:src="${match.awayTeam.flagUrl != null ? match.awayTeam.flagUrl : 'https://countryflagsapi.netlify.app/flag/' + match.awayTeam.fifaCode + '.svg'}" th:alt="${'Bandera de ' + match.awayTeam.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';">
+                                <span class="flag-fallback w-9 h-9 items-center justify-center text-sm">🏳️</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="badge badge-primary" th:text="${match.phase.label}"></span>
+                        <span class="badge badge-outline" th:text="${match.status.label}"></span>
+                        <span class="badge badge-ghost" th:text="${#temporals.format(match.startTime, 'yyyy-MM-dd HH:mm')}"></span>
+                        <span class="badge badge-ghost" th:text="${match.venue}"></span>
+                    </div>
+                </div>
+                <form class="mt-2 flex items-center gap-2 flex-wrap" th:action="@{'/admin/matches/' + ${match.id} + '/result'}" method="post">
+                    <label class="input input-bordered flex items-center gap-2">
+                        <span class="text-sm">Local</span>
+                        <input type="number" min="0" name="homeScore" class="w-16" required>
+                    </label>
+                    <span class="font-bold">-</span>
+                    <label class="input input-bordered flex items-center gap-2">
+                        <span class="text-sm">Visitante</span>
+                        <input type="number" min="0" name="awayScore" class="w-16" required>
+                    </label>
+                    <button class="btn btn-primary" type="submit">Guardar resultado</button>
+                </form>
+            </div>
         </article>
     </div>
 </section>
