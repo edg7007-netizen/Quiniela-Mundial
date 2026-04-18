@@ -35,7 +35,13 @@ Aplicación web de quiniela para el Mundial FIFA 2026. Los usuarios pueden regis
 4. Credenciales admin por defecto:
    - Email: `admin@quinielamundial.com`
    - Password: `Admin123!` (hash BCrypt en `V2__seed_admin.sql`)
-5. Configura Google OAuth (opcional) con variables de entorno:
+5. Usuarios de prueba (password para todos: `Admin123!`):
+   - `carlos@test.com`, `maria@test.com`, `pedro@test.com`, `ana@test.com`, `luis@test.com`
+6. Datos de prueba incluidos (migración `V4__seed_test_data.sql`):
+   - 48 equipos del Mundial 2026 (12 grupos)
+   - 8 partidos finalizados con marcadores + 18 partidos programados a futuro
+   - Pronósticos y puntajes para los 5 usuarios de prueba (leaderboard con datos)
+7. Configura Google OAuth (opcional) con variables de entorno:
    - `GOOGLE_CLIENT_ID`
    - `GOOGLE_CLIENT_SECRET`
 
