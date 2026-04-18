@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotNull
 
 data class MatchResultRequest(
-    @field:NotNull
     val matchId: Long? = null,
     @field:NotNull
     @field:Min(0)
