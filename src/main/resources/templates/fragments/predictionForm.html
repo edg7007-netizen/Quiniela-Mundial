@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="predictionForm(matchId)" th:id="'prediction-form-' + ${matchId}">
-    <form class="flex items-center gap-2" hx-post="/predictions" th:attr="hx-target=${'#prediction-form-' + matchId}" hx-swap="outerHTML">
+    <form class="space-y-5" hx-post="/predictions" th:attr="hx-target=${'#prediction-form-' + matchId}" hx-swap="outerHTML">
         <input type="hidden" name="matchId" th:value="${matchId}">
-        <input type="number" name="homeScore" min="0" class="border rounded p-1 w-16" required>
-        <span>-</span>
-        <input type="number" name="awayScore" min="0" class="border rounded p-1 w-16" required>
-        <button class="bg-emerald-600 text-white px-3 py-1 rounded" type="submit">Guardar pronóstico</button>
+        <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+            <div>
+                <label class="mb-3 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500" for="homeScore">Local</label>
+                <input id="homeScore" type="number" name="homeScore" min="0" class="w-full rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-center text-lg font-semibold text-white outline-none transition focus:border-emerald-300/50 focus:bg-white/[0.08]" required>
+            </div>
+            <span class="mt-7 text-xl font-bold text-slate-500">-</span>
+            <div>
+                <label class="mb-3 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500" for="awayScore">Visitante</label>
+                <input id="awayScore" type="number" name="awayScore" min="0" class="w-full rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-center text-lg font-semibold text-white outline-none transition focus:border-emerald-300/50 focus:bg-white/[0.08]" required>
+            </div>
+        </div>
+        <button class="w-full rounded-full bg-emerald-400 px-4 py-3.5 font-semibold text-slate-950 transition hover:bg-emerald-300" type="submit">Guardar pronóstico</button>
+        <p class="text-xs leading-6 text-slate-500">Solo puedes registrar un pronóstico por partido y antes del cierre.</p>
     </form>
 </div>
 </html>
