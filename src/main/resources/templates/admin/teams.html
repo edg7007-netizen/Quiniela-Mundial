@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="space-y-6">
+<section layout:fragment="content" class="space-y-8 md:space-y-10">
     <div>
         <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Backoffice</p>
         <h1 class="mt-2 text-4xl font-black tracking-tight text-white">Administración de equipos</h1>
     </div>
-    <ul class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.04] shadow-glow">
-        <li th:each="team : ${teams}" class="flex items-center justify-between border-t border-white/10 px-5 py-4 first:border-t-0">
+    <ul class="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-glow">
+        <li th:each="team : ${teams}" class="flex items-center justify-between border-t border-white/10 px-6 py-5 first:border-t-0">
             <span class="font-semibold text-white" th:text="${team.name}"></span>
             <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-sky-100" th:text="${team.fifaCode}"></span>
         </li>

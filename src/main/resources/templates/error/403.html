@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
-<section layout:fragment="content" class="bg-white rounded shadow p-6">
-    <h1 class="text-2xl font-bold text-red-700">403 - Acceso denegado</h1>
-    <p class="mt-2">No tienes permisos para acceder a esta página.</p>
+<section layout:fragment="content" class="mx-auto max-w-2xl space-y-6 rounded-[2rem] border border-white/10 bg-white/[0.05] p-7 shadow-glow md:p-9">
+    <span class="inline-flex rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-amber-100">Error 403</span>
+    <div class="space-y-3">
+        <h1 class="text-3xl font-black tracking-tight text-white">Acceso denegado</h1>
+        <p class="text-sm leading-6 text-slate-300">No tienes permisos para acceder a esta página.</p>
+    </div>
+    <a href="/" class="inline-flex items-center justify-center rounded-full bg-emerald-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-emerald-300">Volver al inicio</a>
 </section>
 </html>
